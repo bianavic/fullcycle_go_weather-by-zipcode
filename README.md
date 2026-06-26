@@ -62,33 +62,46 @@ make fmt            # gofmt + goimports
 
 ### Examples
 
-Success (`200 OK`):
+Each example shows the request followed by the expected response. Temperature values
+reflect the current reading from WeatherAPI and will differ from the sample below.
+
+**Success — `200 OK`**
 
 ```bash
-$ curl -i http://localhost:8080/weather/01001000
+curl -i http://localhost:8080/weather/01001000
+```
+
+```http
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=utf-8
 
-{"temp_C":28.5,"temp_F":83.3,"temp_K":301.5}
+{"temp_C":22.4,"temp_F":72.32,"temp_K":295.4}
 ```
 
-Invalid zipcode (`422 Unprocessable Entity`):
+**Invalid zipcode — `422 Unprocessable Entity`**
 
 ```bash
-$ curl -i http://localhost:8080/weather/123
+curl -i http://localhost:8080/weather/123
+```
+
+```http
 HTTP/1.1 422 Unprocessable Entity
+Content-Type: text/plain; charset=utf-8
 
 invalid zipcode
 ```
 
-Zipcode not found (`404 Not Found`):
+**Zipcode not found — `404 Not Found`**
 
 ```bash
-$ curl -i http://localhost:8080/weather/00000000
+curl -i http://localhost:8080/weather/00000000
+```
+
+```http
 HTTP/1.1 404 Not Found
+Content-Type: text/plain; charset=utf-8
 
 can not find zipcode
-
 ```
 
 ## Project Requirements
