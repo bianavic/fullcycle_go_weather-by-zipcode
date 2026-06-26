@@ -31,7 +31,7 @@ func (f *fakeWeather) CurrentTempC(_ context.Context, _ string) (float64, error)
 	return f.tempC, f.err
 }
 
-func TestWeatherByZipcodeExecute(t *testing.T) {
+func TestWeatherByZipcodeGet(t *testing.T) {
 	t.Run("returns DTO with C/F/K on success", func(t *testing.T) {
 		cities := &fakeCities{city: "São Paulo"}
 		wx := &fakeWeather{tempC: 28.5}
