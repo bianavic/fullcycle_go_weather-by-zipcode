@@ -18,8 +18,8 @@
 Clone the repository, create your local `.env` from the template, then bring up the API
 
 ```bash
-git clone https://github.com/bianavic/fullcycle_go_auction.git
-cd fullcycle_go_auction
+git clone https://github.com/bianavic/fullcycle_go_weather-by-zipcode.git
+cd fullcycle_go_weather-by-zipcode
 cp .env.example .env
 docker compose up --build
 ```
