@@ -49,6 +49,19 @@ func TestClientFind(t *testing.T) {
 		}
 	})
 
+	t.Run("returns ErrZipcodeNotFound when payload has erro as string \"true\"", func(t *testing.T) {
+		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+			_, _ = w.Write([]byte(`{"erro":"true"}`))
+		}))
+		defer server.Close()
+
+		client := viacep.New(server.Client(), server.URL)
+		_, err := client.Find(context.Background(), zip)
+		if !errors.Is(err, domain.ErrZipcodeNotFound) {
+			t.Errorf("err = %v, want ErrZipcodeNotFound", err)
+		}
+	})
+
 	t.Run("returns ErrZipcodeNotFound on HTTP 400", func(t *testing.T) {
 		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 			w.WriteHeader(http.StatusBadRequest)

@@ -41,14 +41,19 @@ func (c *Client) Find(ctx context.Context, zip domain.Zipcode) (string, error) {
 	}
 
 	var payload struct {
-		Erro       bool   `json:"erro"`
-		Localidade string `json:"localidade"`
+		Erro       json.RawMessage `json:"erro"`
+		Localidade string          `json:"localidade"`
 	}
 	if err := json.NewDecoder(resp.Body).Decode(&payload); err != nil {
 		return "", fmt.Errorf("viacep decode: %w", err)
 	}
-	if payload.Erro {
+	if isViaCEPNotFound(payload.Erro) {
 		return "", domain.ErrZipcodeNotFound
 	}
 	return payload.Localidade, nil
+}
+
+func isViaCEPNotFound(raw json.RawMessage) bool {
+	s := strings.TrimSpace(string(raw))
+	return s == "true" || s == `"true"`
 }
