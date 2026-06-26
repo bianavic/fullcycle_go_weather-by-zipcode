@@ -115,7 +115,12 @@ Registry deploy procedure (one-time setup, scripted deploy, hardening, teardown)
 Once deployed, the Cloud Run URL is publicly accessible — no API key, Docker, or local
 setup required to consume the service. Just `curl` it.
 
-**Cloud Run URL:** _TBD — populated once the deploy runs._
+**Cloud Run URL:** <https://weather-by-zipcode-kxqudjaa3a-uc.a.run.app>
+
+Live endpoints:
+
+- <https://weather-by-zipcode-kxqudjaa3a-uc.a.run.app/health>
+- `https://weather-by-zipcode-kxqudjaa3a-uc.a.run.app/weather/{cep}`
 
 ## License
 
