@@ -18,7 +18,7 @@ tidy:
 
 fmt:
 	gofmt -w .
-	goimports -w .
+	go run golang.org/x/tools/cmd/goimports@latest -w .
 
 docker-up:
 	docker compose up --build
