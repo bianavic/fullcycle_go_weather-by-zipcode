@@ -3,7 +3,7 @@
 > This project is part of the [FullCycle](https://fullcycle.com.br/) learning program (Pós-Graduação).
 
 ## Table of Contents
-- [Prerequisites](#prerequisites)
+- [Prerequisites (local development)](#prerequisites-local-development)
 - [Quick Start](#quick-start)
 - [Local Development](#local-development)
 - [API](#api)
@@ -11,7 +11,10 @@
 - [Deployment](#deployment)
 - [License](#license)
 
-## Prerequisites
+## Prerequisites (local development)
+
+> Required only to build/run the service yourself. Consumers of the deployed Cloud Run
+> URL need none of this — see [Deployment](#deployment).
 
 - [Docker](https://docs.docker.com/get-docker/) + Docker Compose
 - Free API key from [WeatherAPI.com](https://weatherapi.com/)
@@ -106,7 +109,13 @@ can not find zipcode
 
 ## Deployment
 
-**Cloud Run URL:** _TBD — populated in the deploy PR._
+See **[docs/DEPLOY.md](docs/DEPLOY.md)** for the full Google Cloud Run / Artifact
+Registry deploy procedure (one-time setup, scripted deploy, hardening, teardown).
+
+Once deployed, the Cloud Run URL is publicly accessible — no API key, Docker, or local
+setup required to consume the service. Just `curl` it.
+
+**Cloud Run URL:** _TBD — populated once the deploy runs._
 
 ## License
 
