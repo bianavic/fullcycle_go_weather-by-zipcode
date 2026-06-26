@@ -5,6 +5,7 @@
 ## Table of Contents
 - [Prerequisites (local development)](#prerequisites-local-development)
 - [Quick Start](#quick-start)
+- [Testing](#testing)
 - [Local Development](#local-development)
 - [API](#api)
 - [Project Requirements](#project-requirements)
@@ -26,8 +27,14 @@ Clone the repository, create your local `.env` from the template, then bring up 
 ```bash
 git clone https://github.com/bianavic/fullcycle_go_weather-by-zipcode.git
 cd fullcycle_go_weather-by-zipcode
-cp .env.example .env
-docker compose up --build
+cp .env.example .env   # fill in WEATHER_API_KEY
+make docker-up         # docker compose up --build
+```
+
+To stop:
+
+```bash
+make docker-down       # docker compose down
 ```
 
 ### Environment variables
@@ -41,16 +48,21 @@ Configured in `.env` at the project root:
 | `WEATHER_API_URL` | `https://api.weatherapi.com/v1/current.json` | WeatherAPI current-conditions endpoint.                           |
 | `VIACEP_API_URL`  | `https://viacep.com.br/ws`                   | viaCEP base URL (CEP -> city lookup).                             |
 
+## Testing
+
+```bash
+make test           # go test -race -cover ./...
+make test-coverage  # writes coverage.out + prints per-func summary
+```
+
 ## Local Development
 
 Without Docker (requires Go 1.26+):
 
 ```bash
-make run            # go run ./cmd/server
-make test           # go test -race -cover ./...
-make test-coverage  # writes coverage.out + prints per-func summary
-make build          # builds bin/server
-make fmt            # gofmt + goimports
+make run    # go run ./cmd/server
+make build  # builds bin/server
+make fmt    # gofmt + goimports
 ```
 
 ## API
@@ -102,6 +114,19 @@ HTTP/1.1 404 Not Found
 Content-Type: text/plain; charset=utf-8
 
 can not find zipcode
+```
+
+**Health check — `200 OK`**
+
+```bash
+curl -i http://localhost:8080/health
+```
+
+```http
+HTTP/1.1 200 OK
+Content-Type: text/plain; charset=utf-8
+
+ok
 ```
 
 ## Project Requirements
