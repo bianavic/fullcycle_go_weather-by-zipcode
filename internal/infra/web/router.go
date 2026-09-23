@@ -3,14 +3,23 @@ package web
 import "net/http"
 
 func NewRouter(uc WeatherUseCase) *http.ServeMux {
-	mux := http.NewServeMux()
-	handler := NewWeatherHandler(uc)
+    mux := http.NewServeMux()
+    handler := NewWeatherHandler(uc)
 
-	mux.HandleFunc("GET /weather/{cep}", handler.Get)
-	mux.HandleFunc("GET /health", func(w http.ResponseWriter, _ *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		_, _ = w.Write([]byte("ok"))
-	})
+    // Rota raiz
+    mux.HandleFunc("GET /", func(w http.ResponseWriter, _ *http.Request) {
+       w.WriteHeader(http.StatusOK)
+       _, _ = w.Write([]byte("Weather API is running! Use /weather/{cep}"))
+    })
 
-	return mux
+    // Rota de clima
+    mux.HandleFunc("GET /weather/{cep}", handler.Get)
+
+    // Rota de health check
+    mux.HandleFunc("GET /health", func(w http.ResponseWriter, _ *http.Request) {
+       w.WriteHeader(http.StatusOK)
+       _, _ = w.Write([]byte("ok"))
+    })
+
+    return mux
 }
